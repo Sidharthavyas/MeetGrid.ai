@@ -2,14 +2,13 @@
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import { OctagonAlert, OctagonAlertIcon } from "lucide-react";
-
+import{FaGithub,FaGoogle} from "react-icons/fa"
 import Link from "next/link";
 import{Input} from "@/components/ui/input";
 import{authClient} from"@/lib/auth-client";
 import{Button} from "@/components/ui/button";
 import {Card, CardContent}  from "@/components/ui/card";
 import{Alert,AlertTitle} from "@/components/ui/alert";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import{
     Form,
@@ -20,16 +19,18 @@ import{
     FormMessage,
 } from "@/components/ui/form"
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-    email:z.string().email(),
+    email:z.email({message:"Invalid Email Adress"}),
     password:z.string().min(1,{message:"Password is required"})
 });
 
 
 export const SignInView =()=>{
-    const router = useRouter();
+    const router = useRouter()
     const[error,SetError]=useState<string | null>(null)
+
     const [pending, setpending] = useState(false)
     const form = useForm<z.infer<typeof formSchema>>({
         resolver:zodResolver(formSchema),
@@ -43,12 +44,15 @@ export const SignInView =()=>{
         SetError(null);
        authClient.signIn.email({
         email:data.email,
-        password:data.password
+        password:data.password,
+          callbackURL:"/"
+
         },
         {
             onSuccess:()=>{
                 setpending(false)
-                router.push("/");
+                router.push("/")
+           
             },
             onError:({error})=>{
                 SetError(error.message)
@@ -58,9 +62,29 @@ export const SignInView =()=>{
     );
     
     }
+
+    const onSocial = (provider:"github" | "google")=>{
+            setpending(true)
+            SetError(null);
+            authClient.signIn.social(
+            {
+            provider:provider
+            },
+            {
+                onSuccess:()=>{
+                    setpending(false);
+                    
+                },
+                onError:({error})=>{
+                    setpending(false);
+                    SetError(error.message)
+    
+            }
+            }
+        )}
    
     return(
-             <div className="flex flex-col gap-6">
+             <div className="flex flex-col gap-6 ">
             <Card className="overflow-hidden p-0">
                 <CardContent className="grid p-0 md:grid-cols-2">
                         <Form {...form}>
@@ -132,18 +156,20 @@ export const SignInView =()=>{
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         <Button
+                                         onClick={()=>onSocial("google")}
                                           disabled={pending}
                                          variant="outline"
                                         type="button"
                                         className="w-full">
-                                                Google 
+                                                <FaGoogle/>
                                         </Button>
                                         <Button
                                           disabled={pending}
+                                          onClick={()=> onSocial("github")}
                                          variant="outline"
                                         type="button"
                                         className="w-full">
-                                                Google 
+                                                <FaGithub/>
                                         </Button>
                                     </div>
                                     <div className="text-center text-sm">Don&apos;t have an account?{" "}

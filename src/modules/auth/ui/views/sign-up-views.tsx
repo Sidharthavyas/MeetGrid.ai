@@ -7,9 +7,9 @@ import Link from "next/link";
 import{Input} from "@/components/ui/input";
 import{authClient} from"@/lib/auth-client";
 import{Button} from "@/components/ui/button";
+import{FaGithub,FaGoogle} from "react-icons/fa"
 import {Card, CardContent}  from "@/components/ui/card";
 import{Alert,AlertTitle} from "@/components/ui/alert";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import{
     Form,
@@ -20,6 +20,7 @@ import{
     FormMessage,
 } from "@/components/ui/form"
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
     name:z.string().min(1,{message:"Name is Requried"}),
@@ -34,7 +35,7 @@ const formSchema = z.object({
 
 
 export const SignUpView =()=>{
-    const router = useRouter();
+    const router = useRouter()
     const[error,SetError]=useState<string | null>(null)
     const [pending, setpending] = useState(false)
     const form = useForm<z.infer<typeof formSchema>>({
@@ -52,12 +53,16 @@ export const SignUpView =()=>{
        authClient.signUp.email({
         name:data.name,
         email:data.email,
-        password:data.password
+        password:data.password,
+          callbackURL:"/"
+
         },
         {
             onSuccess:()=>{
+                router.push("/")
                 setpending(false)
-                router.push("/");
+                
+               
             },
             onError:({error})=>{
                 SetError(error.message)
@@ -68,6 +73,27 @@ export const SignUpView =()=>{
     
     }
    
+        const onSocial = (provider:"github" | "google")=>{
+        setpending(true)
+        SetError(null);
+        authClient.signIn.social(
+        {
+        provider:provider,
+          callbackURL:"/"
+
+        },
+        {
+            onSuccess:()=>{
+                setpending(false);
+              
+            },
+            onError:({error})=>{
+                setpending(false);
+                SetError(error.message)
+
+        }
+        }
+    )}
     return(
              <div className="flex flex-col gap-6">
             <Card className="overflow-hidden p-0">
@@ -179,18 +205,21 @@ export const SignUpView =()=>{
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         <Button
+                                         onClick={()=> onSocial("google")}
                                           disabled={pending}
                                          variant="outline"
                                         type="button"
                                         className="w-full">
-                                                Google 
+                                                <FaGoogle/>
                                         </Button>
                                         <Button
                                           disabled={pending}
+                                          onClick={()=> onSocial("github")}
+
                                          variant="outline"
                                         type="button"
                                         className="w-full">
-                                                Google 
+                                                <FaGithub/>
                                         </Button>
                                     </div>
                                     <div className="text-center text-sm">Already have an account?{" "}
@@ -205,7 +234,7 @@ export const SignUpView =()=>{
            
 
                 <div className="bg-radial   from-green-700 to-black relative hidden md:flex  flex-col gap-y-8  items-center">
-                    <img src="/logo.svg" alt="Image" className="h-[500px] w-[500px]  " />
+                    <img src="/logo.svg" alt="Image" className="h-full w-full object-contain   " />
                
                 </div>
                 

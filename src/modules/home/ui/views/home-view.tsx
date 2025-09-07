@@ -14,7 +14,7 @@ import {  useRouter } from "next/navigation";
   
     <div className="flex  flex-col p-4 gap-y-4">
       <p>Logged in as {session.user.name}</p>
-      <Button 
+      <Button className="btn-primary "
       onClick={()=>authClient.signOut({fetchOptions:{onSuccess:()=> router.push("/sign-in")}})}
       >
         Sign Out 

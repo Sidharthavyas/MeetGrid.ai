@@ -51,7 +51,9 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  /* Primary Colors(e.g button*/
+  --primary-start: oklch(0.63 0.1699 149.21); /* green-700 */
+  --primary-end: oklch(0 0 0); /* black */
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -68,12 +70,16 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
+  /* SideBar Bg Color*/
+  --sidebar: oklch(0.2 0.0283 174.92);
+  /* SideBar Text Color*/
+  --sidebar-foreground: oklch(0.82 0.0057 182.99);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
+  /* side active item bg color*/
+  --sidebar-accent: oklch(0.34 0.0601 171.21);
+  /*Sidebar active item text color*/
+  --sidebar-accent-foreground: oklch(1 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 }
@@ -119,4 +125,23 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+
+/* Base button class */
+.btn-primary {
+  @apply text-white font-bold rounded-lg px-6 py-3 transition-transform duration-200 ease-in-out;
+  background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--primary-end), var(--primary-start));
+ 
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

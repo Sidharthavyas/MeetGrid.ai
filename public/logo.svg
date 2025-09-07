@@ -1,20 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="200" viewBox="0 0 800 200">
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 190" width="380" height="190" role="img" aria-labelledby="title desc">
+  <title id="title">MeetGrid.Ai Logo</title>
+  <desc id="desc">Neural network inside a gradient chat bubble with colorful brand text on the right.</desc>
+
+  <!-- Gradient for chat bubble -->
   <defs>
-    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#00C6FF;stop-opacity:1"></stop>
-      <stop offset="50%" style="stop-color:#6A5ACD;stop-opacity:1"></stop>
-      <stop offset="100%" style="stop-color:#00FFB3;stop-opacity:1"></stop>
+    <linearGradient id="bubbleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#15803d"/> <!-- green-700 -->
+      <stop offset="100%" stop-color="#000000"/> <!-- black -->
+    </linearGradient>
+
+    <!-- Gradient for brand text -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6F61"/>
+      <stop offset="25%" stop-color="#6BCB77"/>
+      <stop offset="50%" stop-color="#4D96FF"/>
+      <stop offset="75%" stop-color="#FFD93D"/>
+      <stop offset="100%" stop-color="#9D4EDD"/>
     </linearGradient>
   </defs>
 
-  <!-- Your icon embedded as image (keeps original design perfect) -->
-  <image href="YOUR_ICON_FILE.png" x="20" y="20" height="160" width="160"></image>
+  <!-- Chat bubble outline -->
+  <path d="M30 35C30 20 45 15 65 15H115C135 15 150 25 150 40V95C150 110 135 120 115 120H85L60 145V120H65C45 120 30 110 30 95V35Z"
+    fill="none"
+    stroke="url(#bubbleGradient)"
+    stroke-width="3.5"
+    stroke-linecap="round"
+    stroke-linejoin="round" />
 
-  <!-- Text -->
-  <text x="220" y="120" font-size="64" font-family="Poppins, Arial, Helvetica, sans-serif" font-weight="600" fill="url(#grad1)">
-    MeetGrid
-  </text>
-  <text x="500" y="120" font-size="64" font-family="Poppins, Arial, Helvetica, sans-serif" font-weight="600" fill="#222">
-    .Ai
+  <!-- Neural network inside bubble -->
+  <g transform="translate(90,70)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5">
+    <!-- connections -->
+    <line x1="0" y1="0" x2="30" y2="-20" stroke="#FF6F61"/>
+    <line x1="0" y1="0" x2="30" y2="20" stroke="#6BCB77"/>
+    <line x1="0" y1="0" x2="-30" y2="-20" stroke="#4D96FF"/>
+    <line x1="0" y1="0" x2="-30" y2="20" stroke="#FFD93D"/>
+
+    <!-- outer nodes -->
+    <circle cx="30" cy="-20" r="6" fill="#FF6F61"/>
+    <circle cx="30" cy="20" r="6" fill="#6BCB77"/>
+    <circle cx="-30" cy="-20" r="6" fill="#4D96FF"/>
+    <circle cx="-30" cy="20" r="6" fill="#FFD93D"/>
+
+    <!-- central node -->
+    <circle cx="0" cy="0" r="10" fill="#9D4EDD"/>
+  </g>
+
+  <!-- Brand text closer to the bubble -->
+  <text x="170" y="90" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="url(#textGradient)">
+    MEETGRID.AI
   </text>
 </svg>

@@ -144,9 +144,9 @@ export const SignInView =()=>{
                                             <AlertTitle>{error}</AlertTitle>
                                         </Alert>
                                     )}
-                                    <Button 
+                                    <Button  
                                     disabled={pending}
-                                    type="submit" className="w-full">
+                                    type="submit" className="w-full btn-primary ">
                                         Sign in
                                     </Button>
                                     <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
@@ -183,10 +183,13 @@ export const SignInView =()=>{
                 </Form>
            
 
-                <div className="bg-radial   from-green-700 to-black relative hidden md:flex  flex-col gap-y-8  items-center">
-                    <img src="/logo.svg" alt="Image" className="h-full w-full object-contain  " />
-               
-                </div>
+             <div className="bg-radial from-green-700 to-black relative hidden md:flex items-center justify-center">
+            <img 
+                        src="/logo.svg" 
+                        alt="MeetGrid.Ai Logo" 
+                        className="w-[60%] md:w-[50%] lg:w-[40%] h-auto object-contain"
+                        />
+            </div>
                 
             </CardContent>
          

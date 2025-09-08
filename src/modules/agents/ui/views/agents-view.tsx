@@ -9,7 +9,10 @@ export const AgentsView = ()=>{
 
 
     return(
-        <div> {JSON.stringify(data,null,2)} </div>
+
+        <div>
+
+             {JSON.stringify(data,null,2)} </div>
     )
 }
 export const AgentsViewLoading = ()=>{

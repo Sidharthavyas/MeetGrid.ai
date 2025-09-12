@@ -1,27 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" fill="none">
-  <!-- Chat bubble -->
-  <path d="M50 60C50 40 70 25 95 25H150C175 25 195 40 195 60V125C195 145 175 160 150 160H105L75 190V160H95C70 160 50 145 50 125V60Z" stroke="black" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
-  
-  <!-- AI Core (chip-like brain) -->
-  <rect x="90" y="70" width="65" height="50" rx="12" stroke="black" stroke-width="6" fill="none"></rect>
-  
-  <!-- Inner nodes -->
-  <circle cx="105" cy="85" r="5" fill="black"></circle>
-  <circle cx="140" cy="85" r="5" fill="black"></circle>
-  <circle cx="105" cy="105" r="5" fill="black"></circle>
-  <circle cx="140" cy="105" r="5" fill="black"></circle>
-  <circle cx="122" cy="95" r="5" fill="black"></circle>
-  
-  <!-- Short outer connectors -->
-  <line x1="122" y1="70" x2="122" y2="55" stroke="black" stroke-width="4" stroke-linecap="round"></line>
-  <circle cx="122" cy="50" r="5" fill="black"></circle>
-  
-  <line x1="122" y1="120" x2="122" y2="135" stroke="black" stroke-width="4" stroke-linecap="round"></line>
-  <circle cx="122" cy="140" r="5" fill="black"></circle>
-  
-  <line x1="90" y1="95" x2="75" y2="95" stroke="black" stroke-width="4" stroke-linecap="round"></line>
-  <circle cx="70" cy="95" r="5" fill="black"></circle>
-  
-  <line x1="155" y1="95" x2="170" y2="95" stroke="black" stroke-width="4" stroke-linecap="round"></line>
-  <circle cx="175" cy="95" r="5" fill="black"></circle>
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 190" width="380" height="190" role="img" aria-labelledby="title desc">
+  <title id="title">MeetGrid.Ai Logo</title>
+  <desc id="desc">All black version of the MeetGrid.Ai logo.</desc>
+
+  <!-- Chat bubble outline -->
+  <path d="M30 35C30 20 45 15 65 15H115C135 15 150 25 150 40V95C150 110 135 120 115 120H85L60 145V120H65C45 120 30 110 30 95V35Z"
+    fill="none"
+    stroke="#000000"
+    stroke-width="3.5"
+    stroke-linecap="round"
+    stroke-linejoin="round" />
+
+  <!-- Neural network inside bubble -->
+  <g transform="translate(90,70)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5">
+    <!-- connections -->
+    <line x1="0" y1="0" x2="30" y2="-20" stroke="#000000"/>
+    <line x1="0" y1="0" x2="30" y2="20" stroke="#000000"/>
+    <line x1="0" y1="0" x2="-30" y2="-20" stroke="#000000"/>
+    <line x1="0" y1="0" x2="-30" y2="20" stroke="#000000"/>
+
+    <!-- outer nodes -->
+    <circle cx="30" cy="-20" r="6" fill="#000000"/>
+    <circle cx="30" cy="20" r="6" fill="#000000"/>
+    <circle cx="-30" cy="-20" r="6" fill="#000000"/>
+    <circle cx="-30" cy="20" r="6" fill="#000000"/>
+
+    <!-- central node -->
+    <circle cx="0" cy="0" r="10" fill="#000000"/>
+  </g>
+
+  <!-- Brand text -->
+  <text x="170" y="90" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#000000">
+    MEETGRID.AI
+  </text>
 </svg>

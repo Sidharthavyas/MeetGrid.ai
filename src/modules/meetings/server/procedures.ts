@@ -1,11 +1,12 @@
 import { db } from "@/db";
-import { agents, meetings } from "@/db/schema";
+import { meetings,agents } from "@/db/schema";
 import { createTRPCRouter,baseProcedure, protectedProcedure } from "@/trpc/init";
 import{z} from"zod";
 import { and, count, desc, eq, getTableColumns, ilike, sql } from "drizzle-orm";
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, MIN_PAGE_SIZE } from "@/constants";
 import { TRPCError } from "@trpc/server";
 import { meetingsInsertSchema, meetingsUpdateSchema } from "../schema";
+import { MeetingStatus } from "../ui/view/types";
 
 export const meetingssRouter = createTRPCRouter({
         update:protectedProcedure
@@ -38,14 +39,24 @@ export const meetingssRouter = createTRPCRouter({
         .min(MIN_PAGE_SIZE)
         .max(MAX_PAGE_SIZE)
         .default(DEFAULT_PAGE_SIZE),
-        search:z.string().nullish()
+        search:z.string().nullish(),
+        agentId:z.string().nullish(),
+        status:z
+        .enum([
+            MeetingStatus.Upcoming,
+            MeetingStatus.Active,
+            MeetingStatus.Completed,
+            MeetingStatus.Processing,
+            MeetingStatus.Cancelled,
+        ])
+        .nullish(),
     }))
     .query(async ({input,ctx})=>{
-        const{search,page,pageSize}=input;
+        const{search,page,pageSize,status,agentId}=input;
         const data = await db.select({
             ...getTableColumns(meetings),
-            agent:agents,
-            duration:sql<number>`EXTRACT(EPOCH FROM (ended_at - started_at))`.as("duration")
+            agent: agents,
+            duration:sql<number>`EXTRACT(EPOCH FROM(ended_at - started_at))`.as("duration")
            
     }).from(meetings)
     .innerJoin(agents,eq(meetings.agentId,agents.id))
@@ -53,6 +64,8 @@ export const meetingssRouter = createTRPCRouter({
         and(
             eq(meetings.userId,ctx.auth.user.id),
         search ? ilike(meetings.name,`%${search}%`):undefined,
+        status? eq(meetings.status,status):undefined,
+        agentId? eq(meetings.agentId,agentId):undefined,
         )
     ).orderBy(desc(meetings.createdAt),desc(meetings.id))
     .limit(pageSize)
@@ -60,11 +73,12 @@ export const meetingssRouter = createTRPCRouter({
     const [total] = await db
     .select({count:count()})
     .from(meetings)
-    .innerJoin(agents,eq(meetings.agentId,agents.id))
     .where(
         and(
             eq(meetings.userId,ctx.auth.user.id),
-            search?ilike(meetings.name, `%${search}%`):undefined
+            search?ilike(meetings.name, `%${search}%`):undefined,
+            status? eq(meetings.status,status):undefined,
+            agentId? eq(meetings.agentId,agentId):undefined,
         )
     )
     const totalPages= Math.ceil(total.count/pageSize)

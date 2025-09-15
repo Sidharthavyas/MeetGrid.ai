@@ -11,7 +11,6 @@ import { cn } from "@/lib/utils"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
-
 function formatDuration(seconds:number){
   return humanizeDuration(seconds * 1000,{
     largest:1,
@@ -45,11 +44,11 @@ export const columns: ColumnDef<MeetingsGetMany[number]>[] = [
           <div className="flex items-center gap-x-2">
             <div className="flex items-center gap-x-1" >
               <CornerDownRightIcon className="size-3 text-muted-foreground"/>
-          <span className="text-sm text-muted-foreground max-w-[200px] truncate capitalize">{row.original.agent.name} </span>
+          <span className="text-sm text-muted-foreground max-w-[200px] truncate capitalize">{row.original.name} </span>
             </div>
             <GeneratedAvatar
             variant="botttsNeutral"
-            seed={row.original.agent.name}
+            seed={row.original.name}
             className="size-4"
             />
             <span className="text-sm text-muted-foreground">

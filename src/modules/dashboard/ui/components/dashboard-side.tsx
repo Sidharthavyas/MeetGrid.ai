@@ -53,7 +53,7 @@ export const DashboardSidebar = () => {
           <Image src="/logo.svg" height={80} width={140} alt="Meet.AI" />
         </Link>
         <div className="px-4 py-2">
-          <Separator className="opacity-10 text-[#5D6868]" />
+          <Separator className="opacity-10 text-[#7ca6a6]" />
         </div>
       </SidebarHeader>
 
